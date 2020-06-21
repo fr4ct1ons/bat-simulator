@@ -8,9 +8,17 @@ public class Stats : MonoBehaviour
 {
     [SerializeField] private float health, maxHealth = 100;
     [SerializeField] private bool resetHealthOnAwake = true;
+    [SerializeField] private bool invulnerable = false;
+
+    public bool Invulnerable
+    {
+        get => invulnerable;
+        set => invulnerable = value;
+    }
 
     public UnityEvent OnHealthZero;
     public UnityEvent OnReceiveDamage;
+    public UnityEvent OnReceiveDamageVulnerable;
 
     public delegate void StatsDelegate(float damage);
 
@@ -24,13 +32,20 @@ public class Stats : MonoBehaviour
 
     public void SendDamage(float damage)
     {
-        health -= damage;
-        Debug.Log(gameObject + " received damage!");
-        OnReceiveDamage.Invoke();
-        OnReceiveDamageVal?.Invoke(damage);
-        if (health <= 0.0f)
+        if (!invulnerable)
         {
-            OnHealthZero.Invoke();
+            health -= damage;
+            Debug.Log(gameObject + " received damage!");
+            OnReceiveDamage.Invoke();
+            OnReceiveDamageVal?.Invoke(damage);
+            if (health <= 0.0f)
+            {
+                OnHealthZero.Invoke();
+            }
+        }
+        else
+        {
+            OnReceiveDamageVulnerable.Invoke();
         }
     }
 }

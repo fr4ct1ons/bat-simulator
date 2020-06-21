@@ -14,11 +14,15 @@ public class BatBehaviour : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private new SpriteRenderer renderer;
     [SerializeField] private Animator anim;
+    [SerializeField] private Collider2D collider;
+    [SerializeField] private float dashDamage;
 
     private BatControls inputs;
     private bool canMove = true;
+    private bool dashing = false;
     private float currentDashDuration = 0.0f;
-    
+    private Stats stats;
+
     private void Awake()
     {
         if (!rb)
@@ -55,6 +59,9 @@ public class BatBehaviour : MonoBehaviour
             if (canMove)
                 Dash();
         };
+
+        if(!stats)
+            stats = GetComponent<Stats>();
     }
 
     private void Move(Vector2 touchPos)
@@ -86,6 +93,8 @@ public class BatBehaviour : MonoBehaviour
     private IEnumerator DashCoroutine()
     {
         canMove = false;
+        dashing = true;
+        stats.Invulnerable = true;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         while (!canMove)
         {
@@ -96,6 +105,8 @@ public class BatBehaviour : MonoBehaviour
             if (currentDashDuration >= dashDuration)
             {
                 canMove = true;
+                stats.Invulnerable = false;
+                dashing = false;
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 rb.AddForce(transform.right * direction * 200.0f);
                 anim.SetBool("StopDash", true);
@@ -129,5 +140,26 @@ public class BatBehaviour : MonoBehaviour
     private void OnDisable()
     {
         inputs.BatMap.Disable();
+    }
+    
+    public void EnableRigidbody()
+    {
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+    
+    public void DisableRigidbody()
+    {
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (dashing)
+        {
+            if (other.gameObject.TryGetComponent<Stats>(out Stats otherStats))
+            {
+                otherStats.SendDamage(dashDamage);
+            }
+        }
     }
 }

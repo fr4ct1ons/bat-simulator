@@ -8,14 +8,32 @@ public class FollowPlayer : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float damage;
-
+    [SerializeField] private new SpriteRenderer renderer;
+    
+    
     private Rigidbody2D rb;
     private Transform playerBat;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        if(!rb)
+            rb = GetComponent<Rigidbody2D>();
+        if (!renderer)
+            renderer = GetComponent<SpriteRenderer>();
+        
         playerBat = FindObjectOfType<BatBehaviour>().transform;
+    }
+
+    private void Update()
+    {
+        if (playerBat.position.x > transform.position.x)
+        {
+            renderer.flipX = false;
+        }
+        else
+        {
+            renderer.flipX = true;
+        }
     }
 
     private void FixedUpdate()
@@ -28,6 +46,13 @@ public class FollowPlayer : MonoBehaviour
         if (other.TryGetComponent<Stats>(out Stats stats))
         {
             stats.SendDamage(damage);
+            GetComponent<Animator>().SetTrigger("Death");
+            rb.simulated = false;
         }
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }
