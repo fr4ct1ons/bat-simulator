@@ -25,6 +25,7 @@ public class Stats : MonoBehaviour
     public void SendDamage(float damage)
     {
         health -= damage;
+        Debug.Log(gameObject + " received damage!");
         OnReceiveDamage.Invoke();
         OnReceiveDamageVal?.Invoke(damage);
         if (health <= 0.0f)

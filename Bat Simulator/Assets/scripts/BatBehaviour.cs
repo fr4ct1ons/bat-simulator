@@ -59,14 +59,12 @@ public class BatBehaviour : MonoBehaviour
 
     private void Move(Vector2 touchPos)
     {
-        Debug.Log(touchPos);
         
         if (touchPos.x <= 0.4f)
         {
             OnJump();
             rb.AddForce(new Vector2(-0.4f, 0.6f) * jumpForce);
             renderer.flipX = true;
-            Debug.Log("lol");
             
         }
         else if (touchPos.x >= 1.0f - 0.4f)
@@ -74,7 +72,6 @@ public class BatBehaviour : MonoBehaviour
             OnJump();
             rb.AddForce(new Vector2(0.4f, 0.6f) * jumpForce);
             renderer.flipX = false;
-            Debug.Log("KEK");
         }
     }
 
