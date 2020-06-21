@@ -46,7 +46,7 @@ public class FollowPlayer : MonoBehaviour
         if (other.TryGetComponent<Stats>(out Stats stats))
         {
             stats.SendDamage(damage);
-            GetComponent<Animator>().SetTrigger("Death");
+            GetComponent<Stats>().SendDamage(999999);
             rb.simulated = false;
         }
     }
