@@ -2,18 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider2D))]
 public class GroundChecker2D : MonoBehaviour
 {
     public bool isGrounded;
+
+    public UnityEvent onBecomeGrounded, onBecomeUngrouded;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            isGrounded = true;
-        }
+        isGrounded = true;
+        onBecomeGrounded.Invoke();
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -23,9 +24,7 @@ public class GroundChecker2D : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            isGrounded = false;
-        }
+        isGrounded = false;
+        onBecomeUngrouded.Invoke();
     }
 }
