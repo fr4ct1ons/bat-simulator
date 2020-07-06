@@ -48,4 +48,9 @@ public class Stats : MonoBehaviour
             OnReceiveDamageVulnerable.Invoke();
         }
     }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
 }
