@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 
@@ -16,6 +17,8 @@ public class BatBehaviour : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Collider2D collider;
     [SerializeField] private float dashDamage;
+
+    public UnityEvent OnGameOver;
 
     private BatControls inputs;
     private bool canMove = true;
@@ -34,13 +37,13 @@ public class BatBehaviour : MonoBehaviour
         
         inputs = new BatControls();
         
-        EnhancedTouchSupport.Enable();
+        //EnhancedTouchSupport.Enable();
 
-        inputs.BatMap.Finger1.performed += ctx =>
+        /*inputs.BatMap.Finger1.performed += ctx =>
         {
             if(canMove)
                 Move(NormalizedMousePos(ctx.ReadValue<Vector2>()));
-        };
+        };*/
         
         inputs.BatMap.FlyLeft.performed += ctx =>
         {
@@ -122,6 +125,10 @@ public class BatBehaviour : MonoBehaviour
 
     public void HitAnimation()
     {
+        if (stats.Health <= 0)
+        {
+            anim.SetTrigger("Death");
+        }
         anim.SetTrigger("Hit");
     }
     
@@ -161,5 +168,11 @@ public class BatBehaviour : MonoBehaviour
                 otherStats.SendDamage(dashDamage);
             }
         }
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0.0f;
+        OnGameOver.Invoke();
     }
 }

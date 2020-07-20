@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 6231221926655473411}
   - component: {fileID: 6231221926655473468}
   - component: {fileID: 14937136}
+  - component: {fileID: 7261722309209662524}
   m_Layer: 10
   m_Name: Bat
   m_TagString: Untagged
@@ -212,7 +213,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7001384129384520942, guid: 8c10703f078777948a8b1c54db9d2163,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -347,3 +348,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7261722309209662524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6231221926655473414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.39394593, y: -0.23185706, z: 0}
+  - {x: 0.4943354, y: -0.1918515, z: 0}
+  - {x: 0.5127159, y: 0.258533, z: 0}
+  - {x: -0.4275689, y: 0.23030639, z: 0}
+  m_ShapePathHash: -657916470
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 17222

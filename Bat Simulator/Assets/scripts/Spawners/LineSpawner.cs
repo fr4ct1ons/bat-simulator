@@ -10,7 +10,7 @@ public class LineSpawner : MonoBehaviour
     [SerializeField] private GameObject objectToSpawn;
     [SerializeField] private Vector2 lineStart, lineEnd;
     
-    private float currentSpawnTime = 0;
+    [SerializeField] private float currentSpawnTime = 0;
     
     private void Update()
     {

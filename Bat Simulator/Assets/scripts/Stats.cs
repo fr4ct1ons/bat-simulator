@@ -16,6 +16,18 @@ public class Stats : MonoBehaviour
         set => invulnerable = value;
     }
 
+    public float Health
+    {
+        get => health;
+        set => health = value;
+    }
+
+    public float MaxHealth
+    {
+        get => maxHealth;
+        set => maxHealth = value;
+    }
+    
     public UnityEvent OnHealthZero;
     public UnityEvent OnReceiveDamage;
     public UnityEvent OnReceiveDamageVulnerable;

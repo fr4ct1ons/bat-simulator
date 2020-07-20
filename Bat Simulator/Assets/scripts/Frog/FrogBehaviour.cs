@@ -27,7 +27,7 @@ public class FrogBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (groundChecker.isGrounded)
+        /*if (groundChecker.isGrounded)
         {
             currentJumpTime += Time.deltaTime;
             if (currentJumpTime >= timeBetweenJumps)
@@ -38,7 +38,7 @@ public class FrogBehaviour : MonoBehaviour
                 anim.SetBool("IsGrounded", false);
                 Debug.Log("Jump");
             }
-        }
+        }*/
     }
 
     public void IdleAnimation()
@@ -71,6 +71,18 @@ public class FrogBehaviour : MonoBehaviour
         if (other.gameObject.TryGetComponent<Stats>(out Stats otherStats))
         {
             otherStats.SendDamage(damage);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (groundChecker.isGrounded)
+        {
+            rb.AddForce(new Vector2(0.0f, Random.Range(minJumpForce, maxJumpForce)));
+            //currentJumpTime = 0.0f;
+            anim.SetTrigger("Jump");
+            anim.SetBool("IsGrounded", false);
+            Debug.Log("Jump");
         }
     }
 }

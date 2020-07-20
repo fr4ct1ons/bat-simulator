@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  damage: 20
+  damage: 1
   renderer: {fileID: 0}
 --- !u!95 &5151078085782742178
 Animator:
